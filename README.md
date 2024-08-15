@@ -16,7 +16,7 @@ License: MIT
 
 ## Lockbox API
 
-Check the lua-lockbox repository for any questions on the other data structures.
+Check the lua-lockbox repository for any questions on the data structures.
 
 ### Functions
 
@@ -78,12 +78,36 @@ end
 
 I do not fully know how they function, visit the main repository for more info.
 
+- `lockbox`
+- `lockbox.cipher.aes128`
+- `lockbox.cipher.aes192`
 - `lockbox.cipher.aes256`
+- `lockbox.cipher.des3`
+- `lockbox.cipher.des`
+- `lockbox.cipher.mode.cbc`
+- `lockbox.cipher.mode.cfb`
 - `lockbox.cipher.mode.ctr`
+- `lockbox.cipher.mode.ecb`
+- `lockbox.cipher.mode.ige`
+- `lockbox.cipher.mode.ofb`
+- `lockbox.cipher.mode.pcbc`
+- `lockbox.digest.md2`
+- `lockbox.digest.md4`
+- `lockbox.digest.md5`
+- `lockbox.digest.ripemd128`
+- `lockbox.digest.ripemd160`
+- `lockbox.digest.sha1`
+- `lockbox.digest.sha2_224`
 - `lockbox.digest.sha2_256`
+- `lockbox.kdf.hkdf`
+- `lockbox.kdf.pbkdf2`
+- `lockbox.mac.hmac`
+- `lockbox.padding.ansix923`
+- `lockbox.padding.isoiec7816`
+- `lockbox.padding.pkcs7`
 - `lockbox.padding.zero`
-- `lockbox.util.array`
 - `lockbox.util.base64`
+- `lockbox.util.array`
 - `lockbox.util.bit`
 - `lockbox.util.queue`
 - `lockbox.util.stream`

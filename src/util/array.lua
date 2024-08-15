@@ -1,7 +1,7 @@
 
-local String = string;
-local Bit = lockbox.util.bit;
-local Queue = lockbox.util.queue;
+local String = string
+local Bit = lockbox.util.bit
+local Queue = lockbox.util.queue
 
 local XOR = Bit.bxor;
 
@@ -220,4 +220,4 @@ Array.slice = function(input, start, stop)
     return out;
 end
 
-lockbox.util.array = Array
+return Array;

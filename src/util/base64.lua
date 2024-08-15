@@ -1,7 +1,7 @@
-local String = string;
-local Bit = lockbox.util.bit;
+local String = string
+local Bit = lockbox.util.bit
 
-local Stream = lockbox.util.stream;
+local Stream = lockbox.util.stream
 
 local AND = Bit.band;
 local OR  = Bit.bor;
@@ -116,4 +116,4 @@ Base64.toString = function(base64)
     return Stream.toString(Base64.toStream(base64));
 end
 
-lockbox.util.base64 = Base64
+return Base64;

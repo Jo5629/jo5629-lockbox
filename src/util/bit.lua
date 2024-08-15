@@ -27,4 +27,4 @@ if not e.rol and not e.lrotate then
     e.lrotate = rol
 end
 
-lockbox.util.bit = e
+return e

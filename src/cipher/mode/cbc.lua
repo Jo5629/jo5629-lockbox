@@ -2,13 +2,9 @@ local Array = lockbox.util.array
 local Stream = lockbox.util.stream
 local Queue = lockbox.util.queue
 
-local Bit = lockbox.util.bit
+local CBC = {};
 
-local AND = Bit.band;
-
-local CTR = {};
-
-CTR.Cipher = function()
+CBC.Cipher = function()
 
     local public = {};
 
@@ -41,59 +37,20 @@ CTR.Cipher = function()
         return public;
     end
 
-    local updateIV = function()
-        iv[16] = iv[16] + 1;
-        if iv[16] <= 0xFF then return; end
-        iv[16] = AND(iv[16], 0xFF);
-
-        iv[15] = iv[15] + 1;
-        if iv[15] <= 0xFF then return; end
-        iv[15] = AND(iv[15], 0xFF);
-
-        iv[14] = iv[14] + 1;
-        if iv[14] <= 0xFF then return; end
-        iv[14] = AND(iv[14], 0xFF);
-
-        iv[13] = iv[13] + 1;
-        if iv[13] <= 0xFF then return; end
-        iv[13] = AND(iv[13], 0xFF);
-
-        iv[12] = iv[12] + 1;
-        if iv[12] <= 0xFF then return; end
-        iv[12] = AND(iv[12], 0xFF);
-
-        iv[11] = iv[11] + 1;
-        if iv[11] <= 0xFF then return; end
-        iv[11] = AND(iv[11], 0xFF);
-
-        iv[10] = iv[10] + 1;
-        if iv[10] <= 0xFF then return; end
-        iv[10] = AND(iv[10], 0xFF);
-
-        iv[9] = iv[9] + 1;
-        if iv[9] <= 0xFF then return; end
-        iv[9] = AND(iv[9], 0xFF);
-
-        return;
-    end
-
     public.update = function(messageStream)
         local byte = messageStream();
         while (byte ~= nil) do
             inputQueue.push(byte);
-
             if(inputQueue.size() >= blockCipher.blockSize) then
                 local block = Array.readFromQueue(inputQueue, blockCipher.blockSize);
 
                 if(iv == nil) then
                     iv = block;
                 else
-                    local out = iv;
+                    local out = Array.XOR(iv, block);
                     out = blockCipher.encrypt(key, out);
-
-                    out = Array.XOR(out, block);
                     Array.writeToQueue(outputQueue, out);
-                    updateIV();
+                    iv = out;
                 end
             end
             byte = messageStream();
@@ -129,7 +86,7 @@ CTR.Cipher = function()
 end
 
 
-CTR.Decipher = function()
+CBC.Decipher = function()
 
     local public = {};
 
@@ -162,59 +119,21 @@ CTR.Decipher = function()
         return public;
     end
 
-    local updateIV = function()
-        iv[16] = iv[16] + 1;
-        if iv[16] <= 0xFF then return; end
-        iv[16] = AND(iv[16], 0xFF);
-
-        iv[15] = iv[15] + 1;
-        if iv[15] <= 0xFF then return; end
-        iv[15] = AND(iv[15], 0xFF);
-
-        iv[14] = iv[14] + 1;
-        if iv[14] <= 0xFF then return; end
-        iv[14] = AND(iv[14], 0xFF);
-
-        iv[13] = iv[13] + 1;
-        if iv[13] <= 0xFF then return; end
-        iv[13] = AND(iv[13], 0xFF);
-
-        iv[12] = iv[12] + 1;
-        if iv[12] <= 0xFF then return; end
-        iv[12] = AND(iv[12], 0xFF);
-
-        iv[11] = iv[11] + 1;
-        if iv[11] <= 0xFF then return; end
-        iv[11] = AND(iv[11], 0xFF);
-
-        iv[10] = iv[10] + 1;
-        if iv[10] <= 0xFF then return; end
-        iv[10] = AND(iv[10], 0xFF);
-
-        iv[9] = iv[9] + 1;
-        if iv[9] <= 0xFF then return; end
-        iv[9] = AND(iv[9], 0xFF);
-
-        return;
-    end
-
     public.update = function(messageStream)
         local byte = messageStream();
         while (byte ~= nil) do
             inputQueue.push(byte);
-
             if(inputQueue.size() >= blockCipher.blockSize) then
                 local block = Array.readFromQueue(inputQueue, blockCipher.blockSize);
 
                 if(iv == nil) then
                     iv = block;
                 else
-                    local out = iv;
-                    out = blockCipher.encrypt(key, out);
-
-                    out = Array.XOR(out, block);
+                    local out = block;
+                    out = blockCipher.decrypt(key, out);
+                    out = Array.XOR(iv, out);
                     Array.writeToQueue(outputQueue, out);
-                    updateIV();
+                    iv = block;
                 end
             end
             byte = messageStream();
@@ -249,8 +168,5 @@ CTR.Decipher = function()
 
 end
 
-
-
-
-return CTR;
+return CBC;
 

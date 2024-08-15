@@ -1,5 +1,5 @@
-local Queue = lockbox.util.queue;
-local String = string;
+local Queue = lockbox.util.queue
+local String = string
 
 local Stream = {};
 
@@ -96,4 +96,4 @@ Stream.toHex = function(stream)
     return table.concat(hex);
 end
 
-lockbox.util.stream = Stream
+return Stream;

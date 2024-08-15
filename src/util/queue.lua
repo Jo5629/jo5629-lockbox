@@ -44,4 +44,4 @@ local Queue = function()
     return public;
 end
 
-lockbox.util.queue = Queue
+return Queue;

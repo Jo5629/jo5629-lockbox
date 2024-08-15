@@ -13,8 +13,8 @@ local CONSTANTS = {
    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2  };
 
-local fmt = "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x" ..
-            "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x"
+local fmt = "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x" ..
+            "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x"
 
 local AND = Bit.band;
 local OR  = Bit.bor;
@@ -51,18 +51,18 @@ end
 
 
 
-local SHA2_256 = function()
+local SHA2_224 = function()
 
     local queue = Queue();
 
-    local h0 = 0x6a09e667;
-    local h1 = 0xbb67ae85;
-    local h2 = 0x3c6ef372;
-    local h3 = 0xa54ff53a;
-    local h4 = 0x510e527f;
-    local h5 = 0x9b05688c;
-    local h6 = 0x1f83d9ab;
-    local h7 = 0x5be0cd19;
+    local h0 = 0xc1059ed8;
+    local h1 = 0x367cd507;
+    local h2 = 0x3070dd17;
+    local h3 = 0xf70e5939;
+    local h4 = 0xffc00b31;
+    local h5 = 0x68581511;
+    local h6 = 0x64f98fa7;
+    local h7 = 0xbefa4fa4;
 
     local public = {};
 
@@ -84,7 +84,7 @@ local SHA2_256 = function()
 
         for i = 16, 63 do
             local s0 = XOR(RROT(w[i - 15], 7), XOR(RROT(w[i - 15], 18), RSHIFT(w[i - 15], 3)));
-            local s1 = XOR(RROT(w[i - 2], 17), XOR(RROT(w[i -  2], 19), RSHIFT(w[i - 2], 10)));
+            local s1 = XOR(RROT(w[i - 2], 17), XOR(RROT(w[i - 2], 19), RSHIFT(w[i - 2], 10)));
             w[i] = AND(w[i - 16] + s0 + w[i - 7] + s1, 0xFFFFFFFF);
         end
 
@@ -119,14 +119,14 @@ local SHA2_256 = function()
     public.init = function()
         queue.reset();
 
-        h0 = 0x6a09e667;
-        h1 = 0xbb67ae85;
-        h2 = 0x3c6ef372;
-        h3 = 0xa54ff53a;
-        h4 = 0x510e527f;
-        h5 = 0x9b05688c;
-        h6 = 0x1f83d9ab;
-        h7 = 0x5be0cd19;
+        h0 = 0xc1059ed8;
+        h1 = 0x367cd507;
+        h2 = 0x3070dd17;
+        h3 = 0xf70e5939;
+        h4 = 0xffc00b31;
+        h5 = 0x68581511;
+        h6 = 0x64f98fa7;
+        h7 = 0xbefa4fa4;
 
         return public;
     end
@@ -174,11 +174,9 @@ local SHA2_256 = function()
         local b16, b17, b18, b19 = word2bytes(h4);
         local b20, b21, b22, b23 = word2bytes(h5);
         local b24, b25, b26, b27 = word2bytes(h6);
-        local b28, b29, b30, b31 = word2bytes(h7);
-
 
         return {  b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15
-                , b16, b17, b18, b19, b20, b21, b22, b23, b24, b25, b26, b27, b28, b29, b30, b31};
+                , b16, b17, b18, b19, b20, b21, b22, b23, b24, b25, b26, b27};
     end
 
     public.asHex = function()
@@ -189,32 +187,28 @@ local SHA2_256 = function()
         local b16, b17, b18, b19 = word2bytes(h4);
         local b20, b21, b22, b23 = word2bytes(h5);
         local b24, b25, b26, b27 = word2bytes(h6);
-        local b28, b29, b30, b31 = word2bytes(h7);
 
         return String.format(fmt, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15
-                , b16, b17, b18, b19, b20, b21, b22, b23, b24, b25, b26, b27, b28, b29, b30, b31);
+                , b16, b17, b18, b19, b20, b21, b22, b23, b24, b25, b26, b27);
     end
 
     public.asString = function()
-        local b0, b1, b2, b3 = word2bytes(h0);
-        local b4, b5, b6, b7 = word2bytes(h1);
-        local b8, b9, b10, b11 = word2bytes(h2);
+        local  b0, b1, b2, b3 = word2bytes(h0);
+        local  b4, b5, b6, b7 = word2bytes(h1);
+        local  b8, b9, b10, b11 = word2bytes(h2);
         local b12, b13, b14, b15 = word2bytes(h3);
         local b16, b17, b18, b19 = word2bytes(h4);
         local b20, b21, b22, b23 = word2bytes(h5);
         local b24, b25, b26, b27 = word2bytes(h6);
-        local b28, b29, b30, b31 = word2bytes(h7);
 
-        return string.pack(string.rep('B', 32),
-            b0, b1, b2, b3, b4, b5, b6, b7, b8,
-            b9, b10, b11, b12, b13, b14, b15,
-            b16, b17, b18, b19, b20, b21, b22, b23, b24,
-            b25, b26, b27, b28, b29, b30, b31);
+        return string.pack(string.rep('B', 28),
+            b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13,
+            b14, b15, b16, b17, b18, b19, b20, b21, b22, b23, b24, b25, b26, b27);
     end
 
     return public;
 
 end
 
-return SHA2_256;
+return SHA2_224;
 
