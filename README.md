@@ -1,22 +1,18 @@
 # Lockbox
 
-Library for encryption/decryption and hashes. Contains AES-256 encryption/decryption.
-
 This is a modified version from [lua-lockbox](https://github.com/somesocks/lua-lockbox) ported to work in Minetest.
 
 License: MIT
 
 ## Commands
 
-- Requires the privileges `server, debug` in order to be used.
+- Requires the privileges `server, debug` and the mod `lib_chatcmdbuilder` in order to be used.
 - `/lockbox aes256 <encrypt | decrypt> <text>`
   - Encrypts or decrypts `text` with AES-256.
 - `/lockbox sha2_256 <text>`
   - Returns a hash from `text` with SHA2-256.
 
 ## Lockbox API
-
-Check the lua-lockbox repository for any questions on the data structures.
 
 ### Functions
 
@@ -61,6 +57,7 @@ print(Array.toString(Array.fromHex(output))) --> this is a test
 ```
 
 - `lockbox.functions.sha2_256(input)`. Returns `boolean, hash`.
+  - This function should be replaced by `minetest.sha256(data, [raw])` if you are using Minetest 5.9.0 or later.
   - Function used for producing a hash.
   - `input` is a string.
   - `hash` is a hexadecimal string.
@@ -76,7 +73,7 @@ end
 
 ### Lockbox Modules
 
-I do not fully know how they function, visit the main repository for more info.
+I do not fully know how they function. If you want to try some of them, I suggest finding which one you want to test then go to its respective test file [here](https://github.com/somesocks/lua-lockbox/tree/master/test) and copy/change some their contents to your liking.
 
 - `lockbox`
 - `lockbox.cipher.aes128`
