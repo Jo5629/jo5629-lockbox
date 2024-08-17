@@ -26,7 +26,7 @@ function lockbox.functions.aes256(mode, input, optional_parameters)
     end
 
     if type(input) ~= "string" then
-        return false, nil
+        return nil, false
     end
 
     if mode == "encrypt" then
@@ -45,7 +45,7 @@ function lockbox.functions.aes256(mode, input, optional_parameters)
             .asHex();
 
         minetest.log("action", "[Lockbox] AES256: " .. cipherOutput)
-        return true, cipherOutput
+        return cipherOutput, true
     elseif mode == "decrypt" then
         local decipher = CipherValues.decipher()
             .setKey(CipherValues.key)
@@ -60,7 +60,7 @@ function lockbox.functions.aes256(mode, input, optional_parameters)
             .asHex();
 
         minetest.log("action", "[Lockbox] AES256: " .. plainOutput)
-        return true, plainOutput
+        return plainOutput, true
     end
 
     return nil, false
@@ -79,5 +79,5 @@ function lockbox.functions.sha2_256(input)
         .asHex()
 
     minetest.log("action", "[Lockbox] SHA2_256: " .. Output)
-    return true, Output
+    return Output, true
 end

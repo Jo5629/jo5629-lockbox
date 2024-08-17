@@ -13,3 +13,6 @@ local src_modpath = modpath .. "/src"
 if minetest.get_modpath("lib_chatcmdbuilder") then
     dofile(miscpath .. "/commands.lua")
 end
+
+local version = "v1.0.0-dev"
+minetest.log("action", "[Lockbox] Mod is initialized. VERSION: " .. version)

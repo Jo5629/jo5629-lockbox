@@ -16,14 +16,14 @@ License: MIT
 
 ### Functions
 
-- `lockbox.functions.aes256(mode, input, optional_parameters)`. Returns `boolean, output`.
+- `lockbox.functions.aes256(mode, input, optional_parameters)`. Returns `output, boolean`.
   - Function used for encryption/decryption with AES-256.
   - `mode` is a string. Either `encrypt` or `decrypt`.
   - `input` is a string.
   - `optional_parameters` is a table. This is not necessary, but can be used if wanted to. See example below for any questions.
     - Changing any of the values in `key` and `iv` will change the encrypted string.
-  - `boolean` - `true` for success, `false` for failure.
   - `output` - Is a hexadecimal string.
+  - `boolean` - `true` for success, `false` for failure.
 
 **EXAMPLE:**
 
@@ -41,13 +41,13 @@ local CipherValues = {
 }
 
 --> Encryption.
-local success, output = lockbox.functions.aes256("encrypt", "this is a test", CipherValues)
+local output, success = lockbox.functions.aes256("encrypt", "this is a test", CipherValues)
 if success then
   print(output) --> 215FB5A428AFB1885D1E6F5795765277
 end
 
 --> Decryption.
-local success, output = lockbox.functions.aes256("decrypt", "215FB5A428AFB1885D1E6F5795765277", CipherValues)
+local output, success = lockbox.functions.aes256("decrypt", "215FB5A428AFB1885D1E6F5795765277", CipherValues)
 if success then
   print(output) --> 74686973206973206120746573740000
 end
@@ -56,7 +56,7 @@ end
 print(Array.toString(Array.fromHex(output))) --> this is a test
 ```
 
-- `lockbox.functions.sha2_256(input)`. Returns `boolean, hash`.
+- `lockbox.functions.sha2_256(input)`. Returns `hash, boolean`.
   - This function should be replaced by `minetest.sha256(data, [raw])` if you are using Minetest 5.9.0 or later.
   - Function used for producing a hash.
   - `input` is a string.
@@ -65,7 +65,7 @@ print(Array.toString(Array.fromHex(output))) --> this is a test
 **EXAMPLE:**
 
 ``` lua
-local success, output = lockbox.functions.sha2_256("this is a test")
+local output, success = lockbox.functions.sha2_256("this is a test")
 if success then
   print(output) --> 2e99758548972a8e8822ad47fa1017ff72f06f3ff6a016851f45c398732bc50c
 end

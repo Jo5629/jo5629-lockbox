@@ -20,13 +20,13 @@ local Array = lockbox.util.array
 
 cmd:sub("aes256 :mode :text:text", function(name, mode, text)
     if mode == "encrypt" then
-        local success, output = lockbox.functions.aes256("encrypt", text)
+        local output, success = lockbox.functions.aes256("encrypt", text)
         if success then
             return true, string.format("OUTPUT: %s", output)
         end
         return false, "Unsuccessful."
     elseif mode == "decrypt" then
-        local success, output = lockbox.functions.aes256("decrypt", text)
+        local output, success = lockbox.functions.aes256("decrypt", text)
         if success then
             return true, string.format("OUTPUT: %s", Array.toString(Array.fromHex(output)))
         end
@@ -37,7 +37,7 @@ cmd:sub("aes256 :mode :text:text", function(name, mode, text)
 end)
 
 cmd:sub("sha2_256 :text:text", function(name, text)
-    local success, output = lockbox.functions.sha2_256(text)
+    local output, success = lockbox.functions.sha2_256(text)
     if success then
         return true, string.format("OUTPUT: %s", output)
     end
