@@ -18,7 +18,7 @@ local CipherValues = {
 }
 
 function lockbox.functions.aes256(mode, input, optional_parameters)
-    local settings = CipherValues
+    local settings = table.copy(CipherValues)
     if optional_parameters and type(optional_parameters) == "table" then
         for k, v in pairs(optional_parameters) do
             settings[k] = v
@@ -32,14 +32,14 @@ function lockbox.functions.aes256(mode, input, optional_parameters)
     if mode == "encrypt" then
         input = Array.fromString(input)
 
-        local cipher = CipherValues.cipher()
-            .setKey(CipherValues.key)
+        local cipher = settings.cipher()
+            .setKey(settings.key)
             .setBlockCipher(AES256Cipher)
-            .setPadding(CipherValues.padding);
+            .setPadding(settings.padding);
 
         local cipherOutput = cipher
             .init()
-            .update(Stream.fromArray(CipherValues.iv))
+            .update(Stream.fromArray(settings.iv))
             .update(Stream.fromArray(input))
             .finish()
             .asHex();
@@ -47,14 +47,14 @@ function lockbox.functions.aes256(mode, input, optional_parameters)
         minetest.log("action", "[Lockbox] AES256: " .. cipherOutput)
         return cipherOutput, true
     elseif mode == "decrypt" then
-        local decipher = CipherValues.decipher()
-            .setKey(CipherValues.key)
+        local decipher = settings.decipher()
+            .setKey(settings.key)
             .setBlockCipher(AES256Cipher)
-            .setPadding(CipherValues.padding);
+            .setPadding(settings.padding);
 
         local plainOutput = decipher
             .init()
-            .update(Stream.fromArray(CipherValues.iv))
+            .update(Stream.fromArray(settings.iv))
             .update(Stream.fromHex(input))
             .finish()
             .asHex();
