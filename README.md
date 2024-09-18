@@ -8,6 +8,8 @@ License: MIT
 
 Some primitives are disabled for some reasons. In order for them to be enabled, change the setting `lockbox.ALLOW_INSECURE` to `true` **before** accessing any of the insecure functions.
 
+If a primitive is accessed without enabling `lockbox.ALLOW_INSECURE`, it will return `nil`.
+
 ## Lockbox Modules
 
 I do not fully know how they function. If you want to try some of them, I suggest finding which one you want to test then go to its respective test file [here](https://github.com/somesocks/lua-lockbox/tree/master/test) and copy/change some their contents to your liking.
@@ -16,25 +18,27 @@ I do not fully know how they function. If you want to try some of them, I sugges
 - `lockbox.cipher.aes128`
 - `lockbox.cipher.aes192`
 - `lockbox.cipher.aes256`
-- `lockbox.cipher.des3` [^1]
-- `lockbox.cipher.des` [^1]
-- `lockbox.cipher.tea` [^1]
-- `lockbox.cipher.xtea` [^1]
+- `lockbox.cipher.des3`*
+- `lockbox.cipher.des`*
+- `lockbox.cipher.tea`*
+- `lockbox.cipher.xtea`*
 - `lockbox.cipher.mode.cbc`
 - `lockbox.cipher.mode.cfb`
 - `lockbox.cipher.mode.ctr`
-- `lockbox.cipher.mode.ecb` [^1]
+- `lockbox.cipher.mode.ecb`*
 - `lockbox.cipher.mode.ige`
 - `lockbox.cipher.mode.ofb`
 - `lockbox.cipher.mode.pcbc`
-- `lockbox.digest.md2` [^1]
-- `lockbox.digest.md4` [^1]
-- `lockbox.digest.md5` [^1]
-- `lockbox.digest.ripemd128` [^1]
-- `lockbox.digest.ripemd160` [^1]
-- `lockbox.digest.sha1` [^1]
+- `lockbox.digest.md2`*
+- `lockbox.digest.md4`*
+- `lockbox.digest.md5`*
+- `lockbox.digest.ripemd128`*
+- `lockbox.digest.ripemd160`*
+- `lockbox.digest.sha1`*
+  - `minetest.sha1` should be used over this.
 - `lockbox.digest.sha2_224`
 - `lockbox.digest.sha2_256`
+  - Use `minetest.sha256` if on Minetest 5.9.0 or later.
 - `lockbox.kdf.hkdf`
 - `lockbox.kdf.pbkdf2`
 - `lockbox.mac.hmac`
@@ -48,4 +52,4 @@ I do not fully know how they function. If you want to try some of them, I sugges
 - `lockbox.util.queue`
 - `lockbox.util.stream`
 
-[^1]: This is an insecure function.
+`*` - This is an insecure function.
