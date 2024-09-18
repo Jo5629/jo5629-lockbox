@@ -6,7 +6,7 @@ local miscpath = modpath .. "/misc"
 dofile(miscpath .. "/lockbox.init.lua")
 dofile(miscpath .. "/functions.lua")
 
-local src_modpath = modpath .. "/src"
+--local src_modpath = modpath .. "/src"
 --dofile(src_modpath .. "/test/AES256CipherTests.lua")
 --dofile(src_modpath .. "/test/SHA2_256Tests.lua")
 

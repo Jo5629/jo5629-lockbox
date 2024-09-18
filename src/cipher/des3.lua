@@ -1,6 +1,9 @@
 local Array = lockbox.util.array
 
 local DES = lockbox.cipher.des
+if not DES then
+    return nil
+end
 
 local DES3 = {};
 
@@ -62,4 +65,4 @@ DES3.decrypt = function(keyBlock, inputBlock)
     return block;
 end
 
-return DES3;
+return lockbox.REQUEST_INSECURE("des3", DES3);

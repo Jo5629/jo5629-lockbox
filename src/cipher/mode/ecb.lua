@@ -153,4 +153,4 @@ ECB.Decipher = function()
 end
 
 
-return ECB;
+return lockbox.REQUEST_INSECURE("ecb", ECB);

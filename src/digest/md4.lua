@@ -210,4 +210,4 @@ local MD4 = function()
 
 end
 
-return MD4;
+return lockbox.REQUEST_INSECURE("md4", MD4);

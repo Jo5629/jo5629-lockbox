@@ -136,4 +136,4 @@ local MD2 = function()
 
 end
 
-return MD2;
+return lockbox.REQUEST_INSECURE("md2", MD2);

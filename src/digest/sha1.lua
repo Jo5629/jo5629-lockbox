@@ -179,4 +179,4 @@ local SHA1 = function()
     return public;
 end
 
-return SHA1;
+return lockbox.REQUEST_INSECURE("sha1", SHA1);

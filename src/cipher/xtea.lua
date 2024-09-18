@@ -101,4 +101,4 @@ XTEA.decrypt = function(key, data)
     return out;
 end
 
-return XTEA;
+return lockbox.REQUEST_INSECURE("xtea", XTEA);

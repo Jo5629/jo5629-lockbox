@@ -102,4 +102,4 @@ TEA.decrypt = function(key, data)
     return out;
 end
 
-return TEA;
+return lockbox.REQUEST_INSECURE("tea", TEA);

@@ -497,4 +497,4 @@ DES.decrypt = function(keyBlock, inputBlock)
     return outputBlock;
 end
 
-return DES;
+return lockbox.REQUEST_INSECURE("des", DES);

@@ -348,5 +348,4 @@ local RIPEMD128 = function()
 
 end
 
-return RIPEMD128;
-
+return lockbox.REQUEST_INSECURE("ripemd128", RIPEMD128);

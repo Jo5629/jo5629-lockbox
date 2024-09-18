@@ -196,4 +196,4 @@ local MD5 = function()
 
 end
 
-return MD5;
+return lockbox.REQUEST_INSECURE("md5", MD5);
