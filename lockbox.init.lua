@@ -1,3 +1,5 @@
+lockbox = {}
+
 --> Insecure functions.
 lockbox.ALLOW_INSECURE = false
 local INSECURE_MODULES = {}
