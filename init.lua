@@ -8,5 +8,5 @@ dofile(modpath .. "/lockbox.init.lua")
 --dofile(src_modpath .. "/test/AES256CipherTests.lua")
 --dofile(src_modpath .. "/test/SHA2_256Tests.lua")
 
-local version = "v1.0.0-dev"
+local version = "v1.0.0"
 minetest.log("action", "[Lockbox] Mod is initialized. VERSION: " .. version)
