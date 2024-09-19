@@ -25,16 +25,17 @@ local function log(success, filepath, module)
     minetest.log("action", string.format("[Lockbox] %s file: %s into %s", success, filepath, module))
 end
 
-local mt = {
-    __index = function(table, key)
-        if lockbox.ALLOW_INSECURE and INSECURE_MODULES[key] ~= nil then
+local mt = {}
+function mt:__index(key)
+    if INSECURE_MODULES[key] then --> Module actually exists, let's try and access it.
+        if lockbox.ALLOW_INSECURE then
             minetest.log("action", "[Lockbox] An insecure module has been accessed.")
             return INSECURE_MODULES[key]
         else
             minetest.log("warning", "[Lockbox] An insecure module was unable to be accessed.")
         end
-    end,
-}
+    end
+end
 
 local srcpath = minetest.get_modpath(minetest.get_current_modname()) .. "/src"
 for _, entry in ipairs({"util", "padding", "cipher", "mac", "digest", "kdf"}) do --> util and padding must go first or the mod will crash.

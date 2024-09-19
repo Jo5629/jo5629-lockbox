@@ -6,9 +6,7 @@ License: MIT
 
 ## Security
 
-Some primitives are disabled for some reasons. In order for them to be enabled, change the setting `lockbox.ALLOW_INSECURE` to `true` **before** accessing any of the insecure functions.
-
-If a primitive is accessed without enabling `lockbox.ALLOW_INSECURE`, it will return `nil`.
+Some primitives are disabled for some reasons. In order for them to be enabled, change the setting `lockbox.ALLOW_INSECURE` to `true` **before** accessing any of the insecure functions, otherwise it will return `nil`.
 
 ## Lockbox Modules
 
